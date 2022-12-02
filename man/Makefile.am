@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2010, 2022, Oracle and/or its affiliates.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -24,18 +24,18 @@
 appmandir = $(APP_MAN_DIR)
 libmandir = $(LIB_MAN_DIR)
 libman_PRE=$(all_shadows:=.man) \
-	xpmmisc.man	        \
-	xpmcreatepixmap.man	\
-	xpmwrite.man	        \
-	xpmcreateimage.man	\
-	xpmcreatebuffer.man     \
-	xpmread.man	        \
-	xpmcreatedata.man	\
-	xpmcreatexpmimage.man
+	XpmCreateBuffer.man	\
+	XpmCreateData.man	\
+	XpmCreateImage.man	\
+	XpmCreatePixmap.man	\
+	XpmCreateXpmImage.man	\
+	XpmMisc.man		\
+	XpmRead.man		\
+	XpmWrite.man
 
 libman_DATA = $(libman_PRE:man=$(LIB_MAN_SUFFIX))
 
-appman_PRE = sxpm.man cxpm.man 
+appman_PRE = sxpm.man cxpm.man
 appman_DATA = $(appman_PRE:man=$(APP_MAN_SUFFIX))
 
 EXTRA_DIST = $(appman_PRE) $(libman_PRE)
@@ -50,29 +50,29 @@ all_shadows = \
          $(xpmcreatexpmimage_shadows)  \
          $(xpmmisc_shadows)  \
          $(xpmread_shadows)  \
-         $(xpmwrite_shadows)  
+         $(xpmwrite_shadows)
 
 xpmcreatebuffer_shadows = \
 	XpmCreateBufferFromImage  \
 	XpmCreateBufferFromPixmap  \
-	XpmCreateBufferFromXpmImage  
+	XpmCreateBufferFromXpmImage
 xpmcreatedata_shadows = \
 	XpmCreateDataFromImage  \
 	XpmCreateDataFromPixmap  \
-	XpmCreateDataFromXpmImage  
+	XpmCreateDataFromXpmImage
 xpmcreateimage_shadows = \
 	XpmCreateImageFromBuffer  \
 	XpmCreateImageFromData  \
-	XpmCreateImageFromXpmImage  
+	XpmCreateImageFromXpmImage
 xpmcreatepixmap_shadows = \
 	XpmCreatePixmapFromBuffer  \
 	XpmCreatePixmapFromData  \
-	XpmCreatePixmapFromXpmImage  
+	XpmCreatePixmapFromXpmImage
 xpmcreatexpmimage_shadows = \
 	XpmCreateXpmImageFromBuffer  \
 	XpmCreateXpmImageFromData  \
 	XpmCreateXpmImageFromImage  \
-	XpmCreateXpmImageFromPixmap  
+	XpmCreateXpmImageFromPixmap
 xpmmisc_shadows = \
 	XpmLibraryVersion  \
 	XpmGetErrorString  \
@@ -81,7 +81,7 @@ xpmmisc_shadows = \
 	XpmAttributesSize  \
 	XpmFreeAttributes  \
 	XpmFreeXpmImage  \
-	XpmFreeXpmInfo  
+	XpmFreeXpmInfo
 xpmread_shadows = \
 	XpmReadFileToImage  \
 	XpmReadFileToPixmap  \
@@ -93,7 +93,7 @@ xpmwrite_shadows = \
 	XpmWriteFileFromPixmap  \
 	XpmWriteFileFromImage  \
 	XpmWriteFileFromXpmImage  \
-	XpmWriteFileFromBuffer  
+	XpmWriteFileFromBuffer
 
 # String replacements in MAN_SUBSTS now come from xorg-macros.m4 via configure
 .man.$(APP_MAN_SUFFIX):

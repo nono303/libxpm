@@ -6,7 +6,7 @@ Xorg mailing list:
 
   https://lists.x.org/mailman/listinfo/xorg
 
-The master development code repository can be found at:
+The primary development code repository can be found at:
 
   https://gitlab.freedesktop.org/xorg/lib/libXpm
   
@@ -29,7 +29,7 @@ libxpm-x.y.z-vcversion.zip
 
 where x.y.z defines the version, vcversion which Visual C++ has been used.
 
-## Building LibXpm 3.5.13
+## Building LibXpm 3.5.14
 
 ### Requirements
 
@@ -42,15 +42,15 @@ where x.y.z defines the version, vcversion which Visual C++ has been used.
 LibXpm can be compiled using various modes. Only the following list can be
 used with PHP:
 
-  * â€œDLL Releaseâ€
+  * “DLL Release”
 
-  * â€œDLL Debugâ€
+  * “DLL Debug”
 
-  * â€œStatic Releaseâ€
+  * “Static Release”
 
-  * â€œStatic Debugâ€
+  * “Static Debug”
 
-PHP uses â€œLIB Releaseâ€ for the PHP builds.
+PHP uses “LIB Release” for the PHP builds.
 
 One of these option has to be used while calling the makefile (VC6 only). VS
 solution files are given for VC8 and VC9.
