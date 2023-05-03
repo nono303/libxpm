@@ -75,4 +75,6 @@ core
 #
 #		Edit the following section as needed
 # For example, !report.pc overrides *.pc. See 'man gitignore'
-# 
+#
+tap-driver.sh
+test-driver

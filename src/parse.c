@@ -66,25 +66,6 @@ xstrlcat(char *dst, const char *src, size_t dstsize)
 #endif
 }
 
-/**
- * like strlcpy() but returns true on success and false if the string got
- * truncated.
- */
-static inline Bool
-xstrlcpy(char *dst, const char *src, size_t dstsize)
-{
-#if defined(HAS_STRLCAT) || defined(HAVE_STRLCAT)
-    return strlcpy(dst, src, dstsize) < dstsize;
-#else
-    if (strlen(src) < dstsize) {
-        strcpy(dst, src);
-        return True;
-    } else {
-        return False;
-    }
-#endif
-}
-
 LFUNC(ParsePixels, int, (xpmData *data, unsigned int width,
 			 unsigned int height, unsigned int ncolors,
 			 unsigned int cpp, XpmColor *colorTable,
@@ -427,6 +408,13 @@ ParsePixels(
 {
     unsigned int *iptr, *iptr2 = NULL; /* found by Egbert Eich */
     unsigned int a, x, y;
+    int ErrorStatus;
+
+    if ((width == 0) && (height != 0))
+	return (XpmFileInvalid);
+
+    if ((height == 0) && (width != 0))
+	return (XpmFileInvalid);
 
     if ((height > 0 && width >= UINT_MAX / height) ||
 	width * height >= UINT_MAX / sizeof(unsigned int))
@@ -464,7 +452,11 @@ ParsePixels(
 		colidx[(unsigned char)colorTable[a].string[0]] = a + 1;
 
 	    for (y = 0; y < height; y++) {
-		xpmNextString(data);
+		ErrorStatus = xpmNextString(data);
+		if (ErrorStatus != XpmSuccess) {
+		    XpmFree(iptr2);
+		    return (ErrorStatus);
+		}
 		for (x = 0; x < width; x++, iptr++) {
 		    int c = xpmGetC(data);
 
@@ -511,7 +503,12 @@ do \
 	    }
 
 	    for (y = 0; y < height; y++) {
-		xpmNextString(data);
+		ErrorStatus = xpmNextString(data);
+		if (ErrorStatus != XpmSuccess) {
+		    FREE_CIDX;
+		    XpmFree(iptr2);
+		    return (ErrorStatus);
+		}
 		for (x = 0; x < width; x++, iptr++) {
 		    int cc1 = xpmGetC(data);
 		    if (cc1 > 0 && cc1 < 256) {
@@ -551,7 +548,11 @@ do \
 		xpmHashAtom *slot;
 
 		for (y = 0; y < height; y++) {
-		    xpmNextString(data);
+		    ErrorStatus = xpmNextString(data);
+		    if (ErrorStatus != XpmSuccess) {
+			XpmFree(iptr2);
+			return (ErrorStatus);
+		    }
 		    for (x = 0; x < width; x++, iptr++) {
 			for (a = 0, s = buf; a < cpp; a++, s++) {
 			    int c = xpmGetC(data);
@@ -571,7 +572,11 @@ do \
 		}
 	    } else {
 		for (y = 0; y < height; y++) {
-		    xpmNextString(data);
+		    ErrorStatus = xpmNextString(data);
+		    if (ErrorStatus != XpmSuccess) {
+			XpmFree(iptr2);
+			return (ErrorStatus);
+		    }
 		    for (x = 0; x < width; x++, iptr++) {
 			for (a = 0, s = buf; a < cpp; a++, s++) {
 			    int c = xpmGetC(data);

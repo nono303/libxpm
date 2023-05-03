@@ -994,11 +994,15 @@ CreateXImage(
 #if !defined(FOR_MSW) && !defined(AMIGA)
     if (height != 0 && (*image_return)->bytes_per_line >= INT_MAX / height) {
 	XDestroyImage(*image_return);
+	*image_return = NULL;
 	return XpmNoMemory;
     }
     /* now that bytes_per_line must have been set properly alloc data */
-    if((*image_return)->bytes_per_line == 0 ||  height == 0)
+    if((*image_return)->bytes_per_line == 0 ||  height == 0) {
+	XDestroyImage(*image_return);
+	*image_return = NULL;
     	return XpmNoMemory;
+    }
     (*image_return)->data =
 	(char *) XpmMalloc((*image_return)->bytes_per_line * height);
 
@@ -2388,8 +2392,8 @@ ParseAndPutPixels(
 	{
 
 /* free all allocated pointers at all exits */
-#define FREE_CIDX {int f; for (f = 0; f < 256; f++) \
-if (cidx[f]) XpmFree(cidx[f]);}
+#define FREE_CIDX do {int f; for (f = 0; f < 256; f++) \
+if (cidx[f]) XpmFree(cidx[f]);} while(0)
 
 	    /* array of pointers malloced by need */
 	    unsigned short *cidx[256];
