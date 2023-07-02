@@ -336,7 +336,7 @@ OpenWriteFile(
 #ifndef NO_ZPIPE
 	size_t len;
 #endif
-	int fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, 0644);
+	int fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0644);
 	if ( fd < 0 )
 	    return(XpmOpenFailed);
 #ifndef NO_ZPIPE

@@ -103,6 +103,13 @@ extern FILE *popen();
 # endif
 #endif
 
+#ifdef O_CLOEXEC
+# define FOPEN_CLOEXEC "e"
+#else
+# define FOPEN_CLOEXEC ""
+# define O_CLOEXEC 0
+#endif
+
 #define XPMMAXCMTLEN BUFSIZ
 typedef struct {
     unsigned int type;

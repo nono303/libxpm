@@ -103,6 +103,9 @@ fi
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
 XORG_ENABLE_UNIT_TESTS
 XORG_WITH_GLIB([2.46])
+if test "x$have_glib" = x"yes"; then
+       AC_CHECK_FUNCS([g_pattern_spec_match_string])
+fi
 XORG_MEMORY_CHECK_FLAGS
 
 AC_CONFIG_FILES([Makefile
