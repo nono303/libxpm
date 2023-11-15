@@ -315,7 +315,7 @@ WriteExtensions(
 
 
 #ifndef NO_ZPIPE
-FUNC(xpmPipeThrough, FILE*, (int fd,
+HFUNC(xpmPipeThrough, FILE*, (int fd,
 			     const char* cmd,
 			     const char* arg1,
 			     const char* mode));

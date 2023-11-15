@@ -53,7 +53,7 @@
 LFUNC(OpenReadFile, int, (const char *filename, xpmData *mdata));
 LFUNC(xpmDataClose, void, (xpmData *mdata));
 
-FUNC(xpmPipeThrough, FILE*, (int fd,
+HFUNC(xpmPipeThrough, FILE*, (int fd,
 			     const char *cmd,
 			     const char *arg1,
 			     const char *mode));
