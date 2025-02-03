@@ -42,8 +42,8 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#include <sys/stat.h> // before XpmI.h, which may rewrite stat (etc) via Xwindows.h
 #include "XpmI.h"
-#include <sys/stat.h>
 #if !defined(FOR_MSW) && !defined(WIN32)
 #include <unistd.h>
 #endif

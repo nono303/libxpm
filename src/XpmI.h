@@ -52,6 +52,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
+#if !defined(_MSC_VER)
+#include <strings.h>
+#endif
 /* stdio.h doesn't declare popen on a Sequent DYNIX OS */
 #ifdef sequent
 extern FILE *popen();
@@ -318,22 +322,6 @@ HFUNC(xpm_znormalizeimagebits, void, (register unsigned char *bp,
 
 #define ZINDEX1(x, y, img) ((y) * img->bytes_per_line) + ((x) >> 3)
 #endif /* not AMIGA */
-
-#ifdef NEED_STRDUP
-HFUNC(xpmstrdup, char *, (char *s1));
-#else
-#undef xpmstrdup
-#define xpmstrdup strdup
-#include <string.h>
-#endif
-
-#ifdef NEED_STRCASECMP
-HFUNC(xpmstrcasecmp, int, (char *s1, char *s2));
-#else
-#undef xpmstrcasecmp
-#define xpmstrcasecmp strcasecmp
-#include <strings.h>
-#endif
 
 HFUNC(xpmatoui, unsigned int,
      (char *p, unsigned int l, unsigned int *ui_return));

@@ -403,13 +403,13 @@ ScanTransparentColor(
 /* end 3.2 bc */
 	for (key = 1; key <= NKEYS; key++) {
 	    if ((s = mask_defaults[key])) {
-		defaults[key] = (char *) xpmstrdup(s);
+		defaults[key] = strdup(s);
 		if (!defaults[key])
 		    return (XpmNoMemory);
 	    }
 	}
     } else {
-	color->c_color = (char *) xpmstrdup(TRANSPARENT_COLOR);
+	color->c_color = strdup(TRANSPARENT_COLOR);
 	if (!color->c_color)
 	    return (XpmNoMemory);
     }
@@ -541,7 +541,7 @@ ScanOtherColors(
 		found = True;
 		for (key = 1; key <= NKEYS; key++) {
 		    if ((s = adefaults[key]))
-			defaults[key] = (char *) xpmstrdup(s);
+			defaults[key] = strdup(s);
 		}
 	    }
 	}
@@ -552,7 +552,7 @@ ScanOtherColors(
 		colorname = xpmGetRgbName(rgbn, rgbn_max, xcolor->red,
 					  xcolor->green, xcolor->blue);
 	    if (colorname)
-		color->c_color = (char *) xpmstrdup(colorname);
+		color->c_color = strdup(colorname);
 	    else {
 		/* at last store the rgb value */
 		char buf[BUFSIZ];
@@ -563,7 +563,7 @@ ScanOtherColors(
 		sprintf(buf, "#%02x%02x%02x",
 			xcolor->red, xcolor->green, xcolor->blue);
 #endif
-		color->c_color = (char *) xpmstrdup(buf);
+		color->c_color = strdup(buf);
 	    }
 	    if (!color->c_color) {
 		XpmFree(xcolors);

@@ -159,6 +159,7 @@ xpmFreeRgbNames(
 					 * second part of the  huge ifdef */
 
 #include "rgbtab.h"			/* hard coded rgb.txt table */
+#define strcasecmp _stricmp
 
 int
 xpmReadRgbNames(
@@ -215,7 +216,7 @@ xpmGetRGBfromName(
     char *name;
     char *grey, *p;
 
-    name = xpmstrdup(inname);
+    name = strdup(inname);
 
     /*
      * the table in rgbtab.c has no names with spaces, and no grey, but a
@@ -247,7 +248,7 @@ xpmGetRGBfromName(
     right = numTheRGBRecords - 1;
     do {
 	middle = (left + right) / 2;
-	cmp = xpmstrcasecmp(name, theRGBRecords[middle].name);
+	cmp = strcasecmp(name, theRGBRecords[middle].name);
 	if (cmp == 0) {
 	    rgbVal = theRGBRecords[middle].rgb;
 	    *r = GetRValue(rgbVal);
